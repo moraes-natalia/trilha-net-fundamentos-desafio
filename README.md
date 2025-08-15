@@ -1,6 +1,6 @@
 # Sistema de Estacionamento
 
-Este projeto foi desenvolvido como parte do **Desafio de Projeto** do Bootcamp **WEX - End to End Engineering** da **DIO (Digital Innovation One)**.
+Este projeto faz parte dos desafios práticos do **Bootcamp WEX – End to End Engineering**, uma iniciativa conjunta entre a **WEX**, empresa global de tecnologia financeira, e a plataforma de ensino **DIO (Digital Innovation One)**. O objetivo é aplicar, na prática, conceitos de desenvolvimento de software por meio da construção de um sistema simples de controle de estacionamento.
 
 **🔗 Exercício Original:** [https://github.com/digitalinnovationone/trilha-net-fundamentos-desafio](https://github.com/digitalinnovationone/trilha-net-fundamentos-desafio)
 
@@ -10,10 +10,10 @@ Este projeto foi desenvolvido como parte do **Desafio de Projeto** do Bootcamp *
 3. Listar veículos
 4. Encerrar
 
-# Documentação - Sistema de Estacionamento
+# Documentação - Sistema de Estacionamento Implementado
 
 ## Visão Geral
-Sistema desenvolvido em C# .NET para gerenciamento de estacionamento com validação de placas brasileiras (formato antigo e Mercosul).
+Sistema desenvolvido em C# .NET para gerenciamento de estacionamento com validação de placas brasileiras (formato antigo e Mercosul). O sistema implementa as 4 funcionalidades propostas no desafio original (cadastrar, remover, listar veículos e encerrar), além de melhorias adicionais como validação avançada de placas, prevenção de duplicatas e formatação automática.
 
 ## Estrutura da Classe `Estacionamento`
 
@@ -200,4 +200,5 @@ Inicializa o sistema com os valores de preço inicial e preço por hora.
 
 ---
 
-**Desenvolvido como parte do Bootcamp WEX - End to End Engineering - DIO**
+**Bootcamp WEX - End to End Engineering - [DIO](https://web.dio.me/)**  
+Desenvolvido por [Natalia Moraes](https://www.linkedin.com/in/moraesnatalia/)
