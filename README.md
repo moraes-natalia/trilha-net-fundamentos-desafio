@@ -1,3 +1,15 @@
+# Sistema de Estacionamento
+
+Este projeto foi desenvolvido como parte do **Desafio de Projeto** do Bootcamp **WEX - End to End Engineering** da **DIO (Digital Innovation One)**.
+
+**🔗 Exercício Original:** [https://github.com/digitalinnovationone/trilha-net-fundamentos-desafio](https://github.com/digitalinnovationone/trilha-net-fundamentos-desafio)
+
+**Proposta do Desafio:**
+1. Cadastrar veículo
+2. Remover veículo
+3. Listar veículos
+4. Encerrar
+
 # Documentação - Sistema de Estacionamento
 
 ## Visão Geral
@@ -185,3 +197,7 @@ Inicializa o sistema com os valores de preço inicial e preço por hora.
 - Exemplos de formato aceito
 - Feedback imediato sobre erros
 - Confirmações de operações realizadas
+
+---
+
+**Desenvolvido como parte do Bootcamp WEX - End to End Engineering - DIO**
