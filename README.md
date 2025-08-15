@@ -1,38 +1,187 @@
-# DIO - Trilha .NET - Fundamentos
-www.dio.me
+# Documentação - Sistema de Estacionamento
 
-## Desafio de projeto
-Para este desafio, você precisará usar seus conhecimentos adquiridos no módulo de fundamentos, da trilha .NET da DIO.
+## Visão Geral
+Sistema desenvolvido em C# .NET para gerenciamento de estacionamento com validação de placas brasileiras (formato antigo e Mercosul).
 
-## Contexto
-Você foi contratado para construir um sistema para um estacionamento, que será usado para gerenciar os veículos estacionados e realizar suas operações, como por exemplo adicionar um veículo, remover um veículo (e exibir o valor cobrado durante o período) e listar os veículos.
+## Estrutura da Classe `Estacionamento`
 
-## Proposta
-Você precisará construir uma classe chamada "Estacionamento", conforme o diagrama abaixo:
-![Diagrama de classe estacionamento](diagrama_classe_estacionamento.png)
+### Propriedades Privadas
+- `decimal precoInicial`: Preço base cobrado para estacionar
+- `decimal precoPorHora`: Valor cobrado por hora de permanência
+- `List<string> veiculos`: Lista que armazena as placas dos veículos estacionados
 
-A classe contém três variáveis, sendo:
+### Construtor
+```csharp
+public Estacionamento(decimal precoInicial, decimal precoPorHora)
+```
+Inicializa o sistema com os valores de preço inicial e preço por hora.
 
-**precoInicial**: Tipo decimal. É o preço cobrado para deixar seu veículo estacionado.
+## Métodos Implementados
 
-**precoPorHora**: Tipo decimal. É o preço por hora que o veículo permanecer estacionado.
+### 1. `ValidarPlacaBrasileira(string placa)` - **PRIVADO**
+**Funcionalidade:** Valida se a placa está no formato brasileiro válido.
 
-**veiculos**: É uma lista de string, representando uma coleção de veículos estacionados. Contém apenas a placa do veículo.
+**Características:**
+- Aceita formato antigo: `ABC1234` ou `ABC-1234` (3 letras + 4 números)
+- Aceita formato Mercosul: `ABC1D23` (3 letras + 1 número + 1 letra + 2 números)
+- Remove espaços e hífens para padronização
+- Utiliza expressões regulares (Regex) para validação
+- Converte para maiúsculas automaticamente
 
-A classe contém três métodos, sendo:
+**Retorno:** `bool` - true se válida, false se inválida
 
-**AdicionarVeiculo**: Método responsável por receber uma placa digitada pelo usuário e guardar na variável **veiculos**.
+---
 
-**RemoverVeiculo**: Método responsável por verificar se um determinado veículo está estacionado, e caso positivo, irá pedir a quantidade de horas que ele permaneceu no estacionamento. Após isso, realiza o seguinte cálculo: **precoInicial** * **precoPorHora**, exibindo para o usuário.
+### 2. `FormatarPlaca(string placa)` - **PRIVADO**
+**Funcionalidade:** Formata a placa no padrão brasileiro correto.
 
-**ListarVeiculos**: Lista todos os veículos presentes atualmente no estacionamento. Caso não haja nenhum, exibir a mensagem "Não há veículos estacionados".
+**Características:**
+- Formato antigo: adiciona hífen (`ABC-1234`)
+- Formato Mercosul: mantém sem hífen (`ABC1D23`)
+- Remove caracteres extras (espaços, hífens desnecessários)
+- Converte para maiúsculas
 
-Por último, deverá ser feito um menu interativo com as seguintes ações implementadas:
-1. Cadastrar veículo
-2. Remover veículo
-3. Listar veículos
-4. Encerrar
+**Retorno:** `string` - placa formatada
 
+---
 
-## Solução
-O código está pela metade, e você deverá dar continuidade obedecendo as regras descritas acima, para que no final, tenhamos um programa funcional. Procure pela palavra comentada "TODO" no código, em seguida, implemente conforme as regras acima.
+### 3. `AdicionarVeiculo()` - **PÚBLICO**
+**Funcionalidade:** Adiciona um novo veículo ao estacionamento.
+
+**Fluxo de execução:**
+1. Solicita placa do usuário via console
+2. Exibe formatos aceitos como orientação
+3. Valida placa usando `ValidarPlacaBrasileira()`
+4. Formata placa usando `FormatarPlaca()`
+5. Verifica se placa já não está cadastrada (evita duplicatas)
+6. Adiciona à lista `veiculos`
+7. Exibe confirmação ou mensagem de erro
+
+**Validações:**
+- ✅ Formato de placa brasileiro
+- ✅ Placa não duplicada
+- ✅ Entrada não vazia
+
+---
+
+### 4. `RemoverVeiculo()` - **PÚBLICO**
+**Funcionalidade:** Remove veículo do estacionamento e calcula valor a pagar.
+
+**Fluxo de execução:**
+1. Solicita placa do usuário
+2. Valida formato da placa
+3. Verifica se veículo está no estacionamento
+4. Solicita quantidade de horas
+5. Calcula valor total: `precoInicial + (precoPorHora × horas)`
+6. Remove veículo da lista
+7. Exibe valor total formatado
+
+**Cálculo:** `valorTotal = precoInicial + (precoPorHora * horas)`
+
+**Validações:**
+- ✅ Formato de placa brasileiro
+- ✅ Veículo existe no estacionamento
+- ✅ Horas é número inteiro não negativo
+
+---
+
+### 5. `ListarVeiculos()` - **PÚBLICO**
+**Funcionalidade:** Lista todos os veículos atualmente estacionados.
+
+**Características:**
+- Verifica se existem veículos na lista
+- Numera os veículos (1º, 2º, 3º...)
+- Exibe mensagem apropriada quando lista vazia
+- Usa loop `for` para percorrer a lista
+
+**Saída:**
+- Se há veículos: Lista numerada
+- Se vazia: "Não há veículos estacionados."
+
+---
+
+## Menu Principal (Program.cs)
+
+### Funcionalidades do Menu:
+1. **Cadastrar veículo** - Chama `AdicionarVeiculo()`
+2. **Remover veículo** - Chama `RemoverVeiculo()`
+3. **Listar veículos** - Chama `ListarVeiculos()`
+4. **Encerrar** - Finaliza aplicação
+
+### Características:
+- Loop infinito até escolha da opção "4"
+- Limpa tela a cada iteração (`Console.Clear()`)
+- Pausa para leitura após cada operação
+- Tratamento de opções inválidas
+
+---
+
+## Validações e Tratamentos de Erro
+
+### Placas Brasileiras:
+- **Formato Antigo:** `^[A-Z]{3}[0-9]{4}$`
+- **Formato Mercosul:** `^[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}$`
+
+### Exemplos Válidos:
+- ✅ `ABC-1234` (antigo com hífen)
+- ✅ `ABC1234` (antigo sem hífen)
+- ✅ `ABC1D23` (Mercosul)
+- ✅ `abc1d23` (aceita minúsculas)
+
+### Exemplos Inválidos:
+- ❌ `AB1234` (poucas letras)
+- ❌ `ABCD123` (muitas letras)
+- ❌ `ABC12345` (muitos números)
+- ❌ `123ABCD` (ordem incorreta)
+
+### Outras Validações:
+- Horas deve ser número inteiro não negativo
+- Não permite placas duplicadas
+- Não permite campos vazios
+
+---
+
+## Bibliotecas Utilizadas
+
+### System.Text.RegularExpressions
+- `Regex.IsMatch()`: Validação de padrões de placa
+
+### System.Linq
+- `Any()`: Verificação de existência na lista
+- `First()`: Localização de elementos
+
+### System.Collections.Generic
+- `List<string>`: Armazenamento das placas
+
+---
+
+## Formatação de Dados
+
+### Valores Monetários:
+- Formato: `R$ XX,XX`
+- Precisão: 2 casas decimais
+- Uso: `{valorTotal:F2}`
+
+### Placas:
+- Sempre em maiúsculas
+- Formato antigo com hífen
+- Formato Mercosul sem hífen
+
+---
+
+## Melhorias Implementadas
+
+### Além dos Requisitos Básicos:
+1. **Validação completa de placas brasileiras**
+2. **Prevenção de duplicatas**
+3. **Formatação padronizada**
+4. **Mensagens informativas**
+5. **Tratamento robusto de erros**
+6. **Interface amigável com exemplos**
+7. **Suporte aos dois formatos de placa (antigo e Mercosul)**
+
+### Experiência do Usuário:
+- Mensagens claras de orientação
+- Exemplos de formato aceito
+- Feedback imediato sobre erros
+- Confirmações de operações realizadas
